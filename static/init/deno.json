@@ -1,0 +1,8 @@
+{
+  "tasks": {
+    "dev": "deno run --watch src/index.ts"
+  },
+  "imports": {
+    "@kuusi/kuusi": "jsr:@kuusi/kuusi@^0.2.1"
+  }
+}
