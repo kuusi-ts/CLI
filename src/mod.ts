@@ -1,6 +1,5 @@
 import { copy } from "@std/fs";
-
-console.log(Deno.args);
+import { join } from "@std/path";
 
 type Command = {
   base: string;
@@ -12,8 +11,12 @@ const initCommand: Command = {
   base: "init",
   options: [],
   exec: async () => {
-    console.log("Initating a project");
+    console.log("Initating a project", Deno.cwd());
 
-    await copy("./static/init/", Deno.cwd());
+    await copy("../static/init/", Deno.cwd(), { overwrite: true });
+
+    new Deno.Command("deno add jsr:@kuusi/kuusi");
   },
 };
+
+if (Deno.args[0] === initCommand.base) initCommand.exec();

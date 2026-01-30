@@ -1,8 +1,14 @@
 {
+  "name": "@kuusi/cli",
+  "version": "0.1.0",
+  "exports": {
+    ".": "./src/mod.ts"
+  },
   "tasks": {
     "dev": "deno -A src/index.ts"
   },
   "imports": {
+    "@david/dax": "jsr:@david/dax@^0.44.2",
     "@std/fs": "jsr:@std/fs@^1.0.22",
     "@std/path": "jsr:@std/path@^1.1.4"
   }
