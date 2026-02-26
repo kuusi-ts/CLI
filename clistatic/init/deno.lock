@@ -1,15 +1,15 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@kuusi/kuusi@~0.2.1": "0.2.1",
+    "jsr:@kuusi/kuusi@~0.4.4": "0.4.4",
     "jsr:@std/dotenv@~0.225.6": "0.225.6",
-    "jsr:@std/fs@^1.0.22": "1.0.22",
+    "jsr:@std/fs@^1.0.22": "1.0.23",
     "jsr:@std/internal@^1.0.12": "1.0.12",
     "jsr:@std/path@^1.1.4": "1.1.4"
   },
   "jsr": {
-    "@kuusi/kuusi@0.2.1": {
-      "integrity": "ce5bdfa0d6ff5357ed76d942b9ea3ec5d805ad14a34b51ed495010719e6a22c2",
+    "@kuusi/kuusi@0.4.4": {
+      "integrity": "874e8ab623427ffeaef0c6e927238f9d88294279a76126901d22ac94e524a577",
       "dependencies": [
         "jsr:@std/dotenv",
         "jsr:@std/fs",
@@ -19,8 +19,8 @@
     "@std/dotenv@0.225.6": {
       "integrity": "1d6f9db72f565bd26790fa034c26e45ecb260b5245417be76c2279e5734c421b"
     },
-    "@std/fs@1.0.22": {
-      "integrity": "de0f277a58a867147a8a01bc1b181d0dfa80bfddba8c9cf2bacd6747bcec9308",
+    "@std/fs@1.0.23": {
+      "integrity": "3ecbae4ce4fee03b180fa710caff36bb5adb66631c46a6460aaad49515565a37",
       "dependencies": [
         "jsr:@std/internal",
         "jsr:@std/path"
@@ -38,7 +38,7 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@kuusi/kuusi@~0.2.1"
+      "jsr:@kuusi/kuusi@~0.4.4"
     ]
   }
 }

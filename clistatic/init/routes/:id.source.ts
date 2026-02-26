@@ -1,12 +1,12 @@
-import { Route } from "@kuusi/kuusi";
+import { WebSource } from "@kuusi/kuusi/types";
 
-export const route = new Route({
+const route = new WebSource({
   GET: (req, patternResult) => {
-    const nummeri = patternResult.pathname.groups.nummeri;
+    const id = patternResult.pathname.groups.id;
 
     return new Response(
       JSON.stringify({
-        nummeri,
+        id,
       }),
       {
         status: 200,
@@ -17,3 +17,5 @@ export const route = new Route({
     );
   },
 });
+
+export default route;

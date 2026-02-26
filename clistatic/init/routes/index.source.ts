@@ -1,6 +1,6 @@
-import { Route } from "@kuusi/kuusi";
+import { WebSource } from "@kuusi/kuusi/types";
 
-export const route = new Route({
+const route = new WebSource({
   GET: (req, patternResult) => {
     return new Response(
       JSON.stringify({
@@ -15,3 +15,5 @@ export const route = new Route({
     );
   },
 });
+
+export default route;

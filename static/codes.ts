@@ -8,8 +8,21 @@ const codes = {
   codes: {
     up: "\x1b[A", // \033[A
     down: "\n",
-    begin: "\r",
+    carriageReturn: "\r",
     upBegin: "\x1b[F", // \033[F
+  },
+  box: {
+    hor: "─",
+    ver: "│",
+    cornerUL: "╭",
+    cornerDL: "╰",
+    cornerUR: "╮",
+    cornerDR: "╯",
+    intersect: "┼",
+    intersectU: "┴",
+    intersectR: "├",
+    intersectD: "┬",
+    intersectL: "┤",
   },
 };
 
