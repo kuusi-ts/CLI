@@ -1,3 +1,9 @@
-# CLI
+# init
 
-The CLI for kuusi
+The project init for kuusi.
+
+Run with
+
+```bash
+deno run -Ar @kuusi/init <projectName>
+```
