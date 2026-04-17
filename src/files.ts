@@ -1,4 +1,4 @@
-type File = { dir?: string; name: string; content: string };
+export type File = { dir?: string; name: string; content: string };
 
 export const defaultFiles: File[] = [
   {
@@ -59,6 +59,22 @@ const route = new WebSource({
 });
 
 export default route;
+`,
+  },
+];
+
+export const dockerFiles: File[] = [
+  {
+    name: "Dockerfile", // Cockerfile
+    content: `FROM denoland/deno:latest
+
+WORKDIR /app
+
+COPY . .
+
+RUN deno install
+
+CMD ["deno", "run", "--allow-net", "--allow-env", "--allow-read", "main.ts"]
 `,
   },
 ];

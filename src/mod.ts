@@ -1,33 +1,74 @@
 import { parseArgs } from "@std/cli";
-import { type Rgb, rgb24 } from "@std/fmt/colors";
 import { join } from "@std/path";
-import { defaultFiles } from "./files.ts";
+import { defaultFiles, dockerFiles, type File } from "./files.ts";
+import denoJsonData from "../deno.json" with { type: "json" };
+
+interface Command {
+  name: string;
+  description: string;
+  alias?: string;
+}
+
+const commands: Command[] = [
+  {
+    name: "help",
+    description: "Helps you out!",
+    alias: "h",
+  },
+  {
+    name: "version",
+    description: "Returns the version.",
+    alias: "v",
+  },
+  {
+    name: "docker",
+    description: "Adds a simple Docker setup to your project.",
+    alias: "d",
+  },
+];
 
 const flags = parseArgs(Deno.args, {
-  boolean: ["help"],
+  boolean: Object.keys(commands),
   default: {},
-  alias: {
-    help: "h",
-  },
+  alias: Object.fromEntries(commands.map(({ name, alias }) => [name, alias])),
 });
 
-const colors: Record<string, Rgb> = {
-  green: { r: 100, g: 200, b: 100 },
-  red: { r: 200, g: 100, b: 100 },
-};
+if (flags.version) {
+  console.log(`Kuusi init: ${denoJsonData.version}`);
+
+  Deno.exit();
+}
+
+if (flags.help) {
+  console.log("Kuusi init, here is help:");
+  for (const command of commands) {
+    console.log(`\t--${command.name}: ${command.description}`);
+    if (command.alias) console.log(`\t -${command.alias}`);
+  }
+
+  console.log();
+
+  Deno.exit();
+}
 
 const projDir = String(flags._[0] ?? ".");
 const path = join(Deno.cwd(), projDir);
 
-console.log(`Initializing a project in ${rgb24(path, colors.green)}`);
+console.log(`Initializing a project in ${path}`);
 
 if (projDir !== ".") Deno.mkdirSync(projDir);
 
-for (const file of defaultFiles) {
-  if (file.dir) Deno.mkdirSync(join(projDir, file.dir));
+function copyFiles(files: File[], projDir: string): void {
+  for (const file of files) {
+    if (file.dir) Deno.mkdirSync(join(projDir, file.dir));
 
-  Deno.writeFileSync(
-    join(projDir, file.name),
-    new TextEncoder().encode(file.content),
-  );
+    Deno.writeFileSync(
+      join(projDir, file.name),
+      new TextEncoder().encode(file.content),
+    );
+  }
 }
+
+copyFiles(defaultFiles, projDir);
+
+if (flags.docker) copyFiles(dockerFiles, projDir);
