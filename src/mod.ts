@@ -1,15 +1,14 @@
 import { parseArgs } from "@std/cli";
 import { join } from "@std/path";
-import { defaultFiles, dockerFiles, type File } from "./files.ts";
+import { defaultFiles, dockerFiles } from "./files.ts";
+import { copyFiles } from "./utils.ts";
 import denoJsonData from "../deno.json" with { type: "json" };
 
-interface Command {
+const commands: {
   name: string;
   description: string;
   alias?: string;
-}
-
-const commands: Command[] = [
+}[] = [
   {
     name: "help",
     description: "Helps you out!",
@@ -25,12 +24,21 @@ const commands: Command[] = [
     description: "Adds a simple Docker setup to your project.",
     alias: "d",
   },
+  {
+    name: "thing",
+    description: "Adds a simple Docker setup to your project.",
+  },
 ];
+
+const aliases = [];
+
+for (const command of commands) {
+  if (command.alias) aliases.push([command.name, command.alias]);
+}
 
 const flags = parseArgs(Deno.args, {
   boolean: Object.keys(commands),
-  default: {},
-  alias: Object.fromEntries(commands.map(({ name, alias }) => [name, alias])),
+  alias: Object.fromEntries(aliases),
 });
 
 if (flags.version) {
@@ -40,10 +48,11 @@ if (flags.version) {
 }
 
 if (flags.help) {
-  console.log("Kuusi init, here is help:");
+  console.log("Usage: deno run -Ar jsr:@kuusi/init [projectName] [flags]\n");
+
   for (const command of commands) {
-    console.log(`\t--${command.name}: ${command.description}`);
-    if (command.alias) console.log(`\t -${command.alias}`);
+    const fullAlias = command.alias ? ("-" + command.alias + ",") : "   ";
+    console.log(`\t${fullAlias} --${command.name}: \t${command.description}`);
   }
 
   console.log();
@@ -57,17 +66,6 @@ const path = join(Deno.cwd(), projDir);
 console.log(`Initializing a project in ${path}`);
 
 if (projDir !== ".") Deno.mkdirSync(projDir);
-
-function copyFiles(files: File[], projDir: string): void {
-  for (const file of files) {
-    if (file.dir) Deno.mkdirSync(join(projDir, file.dir));
-
-    Deno.writeFileSync(
-      join(projDir, file.name),
-      new TextEncoder().encode(file.content),
-    );
-  }
-}
 
 copyFiles(defaultFiles, projDir);
 

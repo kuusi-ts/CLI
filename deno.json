@@ -1,6 +1,6 @@
 {
   "name": "@kuusi/init",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "exports": {
     ".": "./src/mod.ts"
@@ -10,7 +10,6 @@
   },
   "imports": {
     "@std/cli": "jsr:@std/cli@^1.0.28",
-    "@std/fs": "jsr:@std/fs@^1.0.23",
     "@std/path": "jsr:@std/path@^1.1.4"
   }
 }
