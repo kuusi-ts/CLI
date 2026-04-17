@@ -9,7 +9,7 @@ export const defaultFiles: File[] = [
     "prod": "deno run --allow-env --allow-net --allow-read  src/index.ts"
   },
   "imports": {
-    "@kuusi/kuusi": "jsr:@kuusi/kuusi@^1.1.0"
+    "@kuusi/kuusi": "jsr:@kuusi/kuusi@^1.1.1"
   }
 }
 `,

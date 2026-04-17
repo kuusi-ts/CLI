@@ -1,7 +1,7 @@
 import { parseArgs } from "@std/cli";
 import { join } from "@std/path";
 import { defaultFiles, dockerFiles } from "./files.ts";
-import { copyFiles } from "./utils.ts";
+import { copyFiles, multilog } from "./utils.ts";
 import denoJsonData from "../deno.json" with { type: "json" };
 
 const commands: {
@@ -70,3 +70,10 @@ if (projDir !== ".") Deno.mkdirSync(projDir);
 copyFiles(defaultFiles, projDir);
 
 if (flags.docker) copyFiles(dockerFiles, projDir);
+
+multilog(
+  "To get started, run the following commands in your terminal:",
+  `\tcd ${projDir}`,
+  "\tdeno install",
+  "\tdeno run dev"
+)

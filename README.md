@@ -5,5 +5,5 @@ The project init for kuusi.
 Run with
 
 ```bash
-deno run -Ar @kuusi/init <projectName>
+deno run -Ar @kuusi/init <projectName> <flags>
 ```
