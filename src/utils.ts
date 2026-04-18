@@ -2,7 +2,7 @@ import { join } from "@std/path";
 import type { File } from "./files.ts";
 
 export function multilog(...args: unknown[]): void {
-  for (const arg of args) console.log(arg);
+  for (const arg of args) if (arg !== undefined) console.log(arg);
 }
 
 export function copyFiles(files: File[], projDir: string): void {

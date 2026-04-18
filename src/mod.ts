@@ -1,4 +1,5 @@
 import { parseArgs } from "@std/cli";
+import { ensureDirSync, walkSync } from "@std/fs";
 import { join } from "@std/path";
 import { defaultFiles, dockerFiles } from "./files.ts";
 import { copyFiles, multilog } from "./utils.ts";
@@ -65,7 +66,13 @@ const path = join(Deno.cwd(), projDir);
 
 console.log(`Initializing a project in ${path}`);
 
-if (projDir !== ".") Deno.mkdirSync(projDir);
+if (projDir !== ".") ensureDirSync(projDir);
+
+if (Array.from(walkSync(projDir)).length !== 1) {
+  throw new Error(
+    `kuusi-init-directory-not-empty: The project directory is not empty.`,
+  );
+}
 
 copyFiles(defaultFiles, projDir);
 
@@ -73,7 +80,7 @@ if (flags.docker) copyFiles(dockerFiles, projDir);
 
 multilog(
   "To get started, run the following commands in your terminal:",
-  `\tcd ${projDir}`,
+  projDir !== "." ? `\tcd ${projDir}` : undefined,
   "\tdeno install",
-  "\tdeno run dev"
-)
+  "\tdeno run dev",
+);
