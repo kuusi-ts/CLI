@@ -33,8 +33,8 @@ const commands: {
 
 const aliases = [];
 
-for (const command of commands) {
-  if (command.alias) aliases.push([command.name, command.alias]);
+for (const { name, alias } of commands) {
+  if (alias) aliases.push([name, alias]);
 }
 
 const flags = parseArgs(Deno.args, {
